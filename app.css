@@ -9,11 +9,11 @@
 
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
   background-color: #D0F1DC;
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
 }
 
@@ -29,6 +29,7 @@ h1 {
 
 .question-and-answer-box, .answer-page, .results {
   margin: 20px;
+  /* background-color: aliceblue; */
 }
 
 li {
@@ -38,4 +39,8 @@ li {
 
 .submit-answer-btn {
   padding: 15px 0 15px 0;
+}
+
+btn:hover {
+  border-color: black;
 }
