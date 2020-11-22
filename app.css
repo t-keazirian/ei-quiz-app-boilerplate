@@ -14,7 +14,7 @@ h1 {
   font-family: futura;
   font-weight: bold;
   color: #f4f4f5;
-  border-style: double;
+  border: 3px double #f4f4f5;
   margin: 20px 15px 20px 15px;
 }
 
@@ -45,15 +45,14 @@ legend {
 }
 
 .start-screen {
-  margin: 20px;
-  border: 5px solid black;
+  margin: 20px 15px;
+  border: 3px double #f4f4f5;
   padding: 10px;
   color: #EF8354;
 }
 
 .question-and-answer-box, .answer-page, .results {
   margin: 20px;
-  /* background-color: aliceblue; */
 }
 
 li {
