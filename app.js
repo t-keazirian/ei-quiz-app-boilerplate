@@ -47,7 +47,7 @@ questions: [
   },
     // Q5
   {
-    question: "What movie is this quote from: Whatever you do, don't fall asleep.",
+    question: `What movie is this quote from: "Whatever you do, don't fall asleep."?`,
     answers: [
       'The Last House on the Left',
       'A Nightmare on Elm Street',
@@ -102,7 +102,7 @@ questions: [
   },
     // Q10
   {
-    question: 'In the movie, The Strangers, what do the strangers answer when asked, "Why are you doing this?"?',
+    question: `In the movie, The Strangers, what do the strangers answer when asked, "Why are you doing this?"`,
     answers: [
       'Because you were home.',
       "Because it's fun.",
