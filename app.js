@@ -47,7 +47,7 @@ questions: [
   },
     // Q5
   {
-    question: "What movie is this quote from: Whatever you do, don't fall asleep.?",
+    question: "What movie is this quote from: Whatever you do, don't fall asleep.",
     answers: [
       'The Last House on the Left',
       'A Nightmare on Elm Street',
@@ -119,122 +119,122 @@ score: 0
 
 // generate the start page
 function generateStartPageHtml() {
-console.log('`generateStartPageHtml` ran');
-return `
-  <div class="start-screen">
-  <form action="#" id="js-start-quiz">
-    <p>Welcome, horror movie fan!</p>  
-    <p>Test your knowledge of all things scary with this 10 question quiz…Good luck!</p>
-    <button type="button" id="js-start-btn">Start Quiz</button>
-  </form>
-  </div>
-`;
+  console.log('`generateStartPageHtml` ran');
+  return `
+    <div class="start-screen">
+    <form action="#" id="js-start-quiz">
+      <p>Welcome, horror movie fan!</p>  
+      <p>Test your knowledge of all things scary with this 10 question quiz…Good luck!</p>
+      <button type="button" id="js-start-btn">Start Quiz</button>
+    </form>
+    </div>
+  `;
 }
 
 // generate the question and score tracker at the top of every new question asked
 function generateQuestionNumberAndScoreTracker() {
-return `
-  <ul class="question-and-score">
-  <li id="question-number">
-  Question Number: ${store.currentQuestion + 1}/${store.questions.length}
-  </li>
-  <li id="score">
-  Score: ${store.score}/${store.questions.length}
-  </li>
-  </ul>
-`;
+  return `
+    <ul class="question-and-score">
+    <li id="question-number">
+    Question Number: ${store.currentQuestion + 1}/${store.questions.length}
+    </li>
+    <li id="score">
+    Score: ${store.score}/${store.questions.length}
+    </li>
+    </ul>
+  `;
 }
 
 // generate the answer/radio buttons
 function generateAnswersHtml() {
-const answersArray = store.questions[store.currentQuestion].answers;
-let answersHtml = '';
-let index = 0;
-answersArray.forEach(answer => {
-  answersHtml += `
-    <div class="options">
-      <div class="answers">
-        <div id="option-container-${index}">
-          <input type="radio" name="option" id="option${index + 1}" value="${answer}" required>
-          <label for="option${index +1}">${answer}</label>
+  const answersArray = store.questions[store.currentQuestion].answers;
+    let answersHtml = '';
+    let index = 0;
+    answersArray.forEach(answer => {
+      answersHtml += `
+        <div class="options">
+          <div class="answers">
+            <div id="option-container-${index}">
+              <input type="radio" name="option" id="option${index + 1}" value="${answer}" required>
+              <label for="option${index +1}">${answer}</label>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `;
-  index++;
-});
-return answersHtml;
+      `;
+      index++;
+  });
+  return answersHtml;
 }
 
 // generate the question box and call the answer radio buttons below
 function generateQuestionHtml() {
-currentQuestion = store.currentQuestion;
-return `
-  <form action="#" id="question-form">
-    <fieldset>
-      <div class="question-area"
-        <div class="question">
+  currentQuestion = store.currentQuestion;
+  return `
+    <form action="#" id="question-form">
+      <fieldset>
+        <div class="question-area"
+          <div class="question">
+          </div>
+        <div class="options">
+        <div class="answers">
+          <legend>${store.questions[currentQuestion].question}
+          </legend>
         </div>
-      <div class="options">
-      <div class="answers">
-        <legend>${store.questions[currentQuestion].question}
-        </legend>
+          ${generateAnswersHtml()}
+        </div>
+        <div class="submit-answer-btn">
+            <button type="submit" id="js-submit-answer-btn">Submit Answer</button>
+        </div>
       </div>
-        ${generateAnswersHtml()}
+      <div class="result-area" style="display:none">
+        <div class="next-question-btn">
+            <button type="button" id="js-next-question-btn">Next Question</button>
+        </div>
       </div>
-      <div class="submit-answer-btn">
-          <button type="submit" id="js-submit-answer-btn">Submit Answer</button>
-      </div>
-    </div>
-    <div class="result-area" style="display:none">
-      <div class="next-question-btn">
-          <button type="button" id="js-next-question-btn">Next Question</button>
-      </div>
-    </div>
-    </fieldset>
-  </form>
-`;
+      </fieldset>
+    </form>
+  `;
 }
 
 // generate HTML for grading once radio button has been selected
 function generateAnswerResponseHtml(answerStatus) {
-let correctAnswer = store.questions[store.currentQuestion].correctAnswer;
-let html = '';
-if (answerStatus === 'correct') {
-  html = `
-  <div class="answer-screen">
-    <div class="answer-response">
-      <p>That is correct!</p>
-    </div>
-  </div>`;
-} else if (answerStatus === 'incorrect') {
-  html = `
-  <div class="answer-screen">
-    <div class="answer-response">
-      <p>That is incorrect!</p>
-      <p>The correct answer is: ${correctAnswer}.</p>
-    </div>
-  </div>
-  `;
+  let correctAnswer = store.questions[store.currentQuestion].correctAnswer;
+  let html = '';
+    if (answerStatus === 'correct') {
+      html = `
+      <div class="answer-screen">
+        <div class="answer-response">
+          <p>That is correct!</p>
+        </div>
+      </div>`;
+    } else if (answerStatus === 'incorrect') {
+      html = `
+      <div class="answer-screen">
+        <div class="answer-response">
+          <p>That is incorrect! The correct answer is:</p> 
+          <p>${correctAnswer}.</p>
+        </div>
+      </div>
+      `;
 }
-return html;
+  return html;
 }
 
 // generate screen at end to tell them their final score and prompt to restart the quiz
 function generateResultsScreen() {
-return `
-    <div class="results-screen">
-    <form action="#" id="restart-quiz">
-      <fieldset>
-        <div class="total-score">
-          <p>Your total score is: ${store.score}/${store.questions.length}!</p>
-        </div>
-        <div class="restart-quiz-btn">
-          <button type="button" id="js-restart-quiz-btn">Restart Quiz</button>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+  return `
+      <div class="results-screen">
+      <form action="#" id="restart-quiz">
+        <fieldset>
+          <div class="total-score">
+            <p>Your total score is: ${store.score}/${store.questions.length}!</p>
+          </div>
+          <div class="restart-quiz-btn">
+            <button type="button" id="js-restart-quiz-btn">Restart Quiz</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
 `;
 }
 
@@ -242,19 +242,19 @@ return `
 
 // render quiz - if quiz started is false, generate start page; if currentQuestion is >= to 0 AND currentQuestion is less than the length of the questions array in store, generate the question and answer tracker and the question HTML; if both of those are not true, generate the results screen as the quiz is over
 function renderQuiz() {
-console.log('`renderQuiz` ran');
+  console.log('`renderQuiz` ran');
 
-currentQuestion = store.currentQuestion;
+  currentQuestion = store.currentQuestion;
 
-if (store.quizStarted === false) {
-  $('main').html(generateStartPageHtml());
-} else if ((currentQuestion >= 0) && (currentQuestion < store.questions.length)) {
-  html = generateQuestionNumberAndScoreTracker();
-  html += generateQuestionHtml();
-  $('main').html(html);
-} else {
-  $('main').html(generateResultsScreen());
-  handleRestartQuizButtonClicked();
+  if (store.quizStarted === false) {
+    $('main').html(generateStartPageHtml());
+  } else if ((currentQuestion >= 0) && (currentQuestion < store.questions.length)) {
+    html = generateQuestionNumberAndScoreTracker();
+    html += generateQuestionHtml();
+    $('main').html(html);
+  } else {
+    $('main').html(generateResultsScreen());
+    handleRestartQuizButtonClicked();
 };
 }
 
@@ -262,19 +262,19 @@ if (store.quizStarted === false) {
 
 // handle click on Start Quiz button
 function handleStartQuizClicked() {
-console.log('`handleStartQuizClicked` ran')
+  console.log('`handleStartQuizClicked` ran')
 
-$('#js-start-btn').click(event => {
-  store.quizStarted = true;
-  renderQuiz();
-  handleSubmitAnswerButtonClicked();
-  handleNextQuestionClicked();
+  $('#js-start-btn').click(event => {
+    store.quizStarted = true;
+    renderQuiz();
+    handleSubmitAnswerButtonClicked();
+    handleNextQuestionClicked();
 });
 }
 
 // handle click of Next Question button
 function handleNextQuestionClicked() {
-console.log('`handleNextQuestionClicked` ran');
+  console.log('`handleNextQuestionClicked` ran');
 
 $('#js-next-question-btn').click(event => {
   renderQuiz();
@@ -285,10 +285,9 @@ $('#js-next-question-btn').click(event => {
 
 // handle click of Submit Answer button
 function handleSubmitAnswerButtonClicked() {
-console.log('`handleSubmitAnswerButtonClicked` ran');
+  console.log('`handleSubmitAnswerButtonClicked` ran');
 
-$('#question-form').submit(event => {
-  
+  $('#question-form').submit(event => {
   event.preventDefault();
 
 //  grab current question object
@@ -296,11 +295,6 @@ $('#question-form').submit(event => {
 
   // grab selected answer
   let selectedOption = $('input[name=option]:checked').val();
-
-  // check if selected answer is correct answer
-  // let optionContainerId = `#option-container-
-  // ${currentQuestion.answers.findIndex(answer => 
-  // answer === selectedOption)}`;
 
 // if the selected answer matches the value of the current question's correct answer, add one to the score and prepend the correct Html response; if incorrect, prepend the incorrect Html response and add one to the currentQuestion tracker
   if (selectedOption === currentQuestion.correctAnswer) {
@@ -321,14 +315,14 @@ $('#question-form').submit(event => {
 
 // set all values back to 0 and false to restart the quiz
 function restartQuiz() {
-store.quizStarted = false;
-store.currentQuestion = 0;
-store.score = 0;
+  store.quizStarted = false;
+  store.currentQuestion = 0;
+  store.score = 0;
 }
 
 // handle click on Restart Quiz button; will run restartQuiz function, render the quiz, and then prompt handleStartQuizClicked function
 function handleRestartQuizButtonClicked() {
-console.log('`handleRestartQuizButtonClicked` ran');
+  console.log('`handleRestartQuizButtonClicked` ran');
 
 $('#js-restart-quiz-btn').click(event => {
   restartQuiz();
@@ -341,9 +335,9 @@ $('#js-restart-quiz-btn').click(event => {
 
 // call back function once page is loaded
 function handleQuiz() {
-console.log('`handleQuiz` ran');
-renderQuiz();
-handleStartQuizClicked();
+  console.log('`handleQuiz` ran');
+  renderQuiz();
+  handleStartQuizClicked();
 }
 
 $(handleQuiz);
